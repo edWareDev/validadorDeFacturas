@@ -1,0 +1,92 @@
+<main>
+    <div class="actions">
+        <div class="logo">
+            <h1>SATELITAL</h1>
+        </div>
+        <div class="loadOptions">
+            <input style="display: none;" type="file" id="excelFileInput" />
+            <div class="buttonFile">
+                <span class="material-symbols-outlined">
+                    ads_click
+                </span>
+                <div class="filename">
+                    Cargar Archivo...
+                </div>
+            </div>
+            <span id="checkFile" class="material-symbols-outlined inv">
+                cloud_upload
+            </span>
+        </div>
+        <div class="totalRegisters">
+            Registros Totales: <span id="total"
+                title="Indica la cantidad de filas ocupadas en el archivo Excel, si hay filas vacías contarán, pero no aparecerán.">0</span>
+        </div>
+        <div class="progressBar">
+            <div class="allBar">
+                <div class="progressInfo">
+                    <span id="current"></span>
+                    <span id="separator"></span>
+                    <span id="totalSelected"></span>
+                </div>
+                <div class="currentPos">
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <span class="material-symbols-outlined unselectable" id="settings">
+                settings
+            </span>
+            <span class="material-symbols-outlined unselectable" id="startScan">
+                play_arrow
+            </span>
+            <span class="material-symbols-outlined unselectable disabled" id="downloadFile">
+                download
+            </span>
+        </div>
+        <div class="modals inv">
+            <div class="settingsModal">
+                <label class="unselectable" for="turbo">
+                    <input type="checkbox" name="turbo" id="turbo">
+                    Turbo
+                </label>
+                <input type="number" value="20" min="10" max="100" id="turboPower">
+                <span class="material-symbols-outlined unselectable" id="saveSettings">
+                    done
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="tableHeader">
+            <div class="registro">
+                <div></div>
+                <div>
+                    <label for="regCheckbox" id="labelAllRegCheckbox">
+
+                    </label>
+                </div>
+                <div>Fecha</div>
+                <div>Código</div>
+                <div>Serie</div>
+                <div>Número</div>
+                <div>RUC</div>
+                <div>Nombre</div>
+                <div>SubTotal</div>
+                <div>Exonerado</div>
+                <div>Inafecto</div>
+                <div>Total</div>
+                <div>Auto. Imprenta</div>
+                <div>Estado</div>
+                <div>Resultado</div>
+                <div>Observaciones</div>
+            </div>
+        </div>
+        <div class="tableBody">
+
+        </div>
+    </div>
+</main>
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+<script src="./js/loadShowXLS.js"></script>
+<script src="./js/script.js"></script>
+<script type="module" src="./js/arrayValidate.js"></script>

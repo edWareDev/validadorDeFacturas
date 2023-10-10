@@ -1,3 +1,18 @@
+const runValidation = async (token, datosFactura) => {
+    const respuestaDeConsultaComprobante = await validateComprobante(token, datosFactura);
+    if (respuestaDeConsultaComprobante.success === false) {
+        return respuestaDeConsultaComprobante;
+    } else {
+        const estadoCp = respuestaDeConsultaComprobante.data.estadoCp
+        if (!estadoCp) {
+            return runValidation(token, datosFactura); // Llamada recursiva hasta obtener un estado válido
+        } else {
+            return respuestaDeConsultaComprobante.data;
+        }
+    }
+};
+
+
 const buttonStartScan = document.querySelector('#startScan')
 buttonStartScan.addEventListener('click', () => {
     const lista = []
@@ -40,7 +55,28 @@ function disableAllCheckbox(boolean) {
     })
 }
 
-const tokenData = await getToken();
+const credencialesEmpresas = {
+    sate: {
+        client_id: 'cbeebb7e-79a9-4d1d-b2eb-9e087cb3a70d',
+        client_secret: 'MKdoAjoyeNVJdEFXT22rlA=='
+    },
+    gf: {
+        client_id: '9249c845-f8fd-4220-a390-78cf2c05cbc1',
+        client_secret: 'tkiMf9gM6H/2I/aYk8FTMA=='
+    }
+}
+
+let tokenData = '';
+const areaInicio = document.querySelector('.inicio')
+const buttonSetBusiness = document.querySelector('#setBusiness')
+buttonSetBusiness.addEventListener('click', async (e) => {
+    e.preventDefault()
+    const businessSelected = document.querySelector('#business')
+    areaInicio.classList.add('inv')
+    const credenciales = credencialesEmpresas[businessSelected.value]
+    tokenData = await getToken(credenciales.client_id, credenciales.client_secret);
+})
+
 // CODIGO DE FUNCIONAMIENTO EN INDIVIDUAL
 async function validateLista(lista, itemsHTML, turbo, batchSize = 50) {
     console.time("Tiempo De Procesamiento");
@@ -135,10 +171,15 @@ async function validateLista(lista, itemsHTML, turbo, batchSize = 50) {
     return lista;
 }
 
-async function getToken() {
+async function getToken(clientId, clientSecret) {
     try {
         const response = await fetch("/api/getToken", {
-            method: 'GET',
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                "client_id": clientId,
+                "client_secret": clientSecret
+            }),
             redirect: 'follow'
         });
 
@@ -178,26 +219,12 @@ async function validateComprobante(token, datosFactura) {
     }
 }
 
-const runValidation = async (token, datosFactura) => {
-    const respuestaDeConsultaComprobante = await validateComprobante(token, datosFactura);
-    if (respuestaDeConsultaComprobante.success === false) {
-        return respuestaDeConsultaComprobante;
-    } else {
-        const estadoCp = respuestaDeConsultaComprobante.data.estadoCp
-        if (!estadoCp) {
-            return runValidation(token, datosFactura); // Llamada recursiva hasta obtener un estado válido
-        } else {
-            return respuestaDeConsultaComprobante.data;
-        }
-    }
-};
 
 function createXLSFile(itemsHTML) {
     console.timeEnd("Tiempo De Procesamiento");
     const buttonDownload = document.querySelector("#downloadFile")
     buttonDownload.classList.remove('disabled');
     buttonDownload.addEventListener('click', () => {
-        // console.log(itemsHTML);
         const newXlsObject = []
         itemsHTML.forEach(itemRegistro => {
             const newObjectRegister =

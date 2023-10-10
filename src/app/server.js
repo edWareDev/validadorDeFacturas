@@ -4,7 +4,6 @@ import { engine } from "express-handlebars";
 import { routerApi } from "../routers/api.router.js";
 import { routerVistas } from "../routers/views.router.js";
 import cors from 'cors';
-import open from "open";
 
 const app = express();
 app.use(cors());
@@ -19,5 +18,4 @@ app.use('/api', routerApi)
 app.use('/', routerVistas)
 app.listen(PORT, () => {
     console.log(`Servidor web escuchando en http://127.0.0.1:${PORT}`);
-    open(`http://127.0.0.1:${PORT}`);
 });

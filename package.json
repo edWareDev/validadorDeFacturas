@@ -12,7 +12,7 @@
     "node": "16.x"
   },
   "keywords": [],
-  "author": "",
+  "author": "edWareDev",
   "license": "ISC",
   "bin": {
     "validadordefacturas": "src/main.js"

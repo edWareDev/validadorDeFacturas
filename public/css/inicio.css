@@ -28,6 +28,48 @@ main {
   justify-content: space-between;
 }
 
+main .inicio {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background-color: #04AA6D;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+main .inicio label {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: white;
+}
+
+main .inicio select {
+  background-color: white;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-align: center;
+  padding: .8rem 1.2rem;
+  outline: none;
+  color: #04AA6D;
+}
+
+main .inicio button {
+  padding: 1rem 4rem;
+  font-size: 1.6rem;
+  background-color: white;
+  color: #04AA6D;
+  font-weight: 600;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
 main .actions {
   height: 6vh;
   display: flex;

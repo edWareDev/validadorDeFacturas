@@ -11,7 +11,6 @@ buttonLoadFileHidden.addEventListener('change', () => {
 
 const buttonSettings = document.querySelector('#settings')
 buttonSettings.addEventListener('click', () => {
-    console.log('Clic en Settings');
     document.querySelector('.modals').classList.remove('inv')
 })
 

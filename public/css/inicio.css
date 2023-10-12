@@ -85,6 +85,12 @@ main .actions .logo {
   align-items: center;
 }
 
+main .actions .logo h1{
+  width: 100%;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
 main .actions .loadOptions {
   display: flex;
   justify-content: center;
@@ -326,7 +332,7 @@ main .content .registro> :nth-child(2) {
 }
 
 main .content .registro> :nth-child(3) {
-  width: 5%;
+  width: 6%;
 }
 
 main .content .registro> :nth-child(4) {
@@ -338,56 +344,44 @@ main .content .registro> :nth-child(5) {
 }
 
 main .content .registro> :nth-child(6) {
-  width: 4%;
+  width: 5%;
 }
 
 main .content .registro> :nth-child(7) {
-  width: 6%;
+  width: 8%;
 }
 
 main .content .registro> :nth-child(8) {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 18%;
+  width: 6%;
 }
 
 main .content .registro> :nth-child(9) {
-  width: 5%;
+  width: 10%;
 }
 
 main .content .registro> :nth-child(10) {
-  width: 6%;
+  width: 10%;
 }
 
 main .content .registro> :nth-child(11) {
-  width: 5%;
+  width: 10%;
 }
 
 main .content .registro> :nth-child(12) {
-  width: 5%;
+  width: 10%;
 }
 
 main .content .registro> :nth-child(13) {
-  width: 8%;
-}
-
-main .content .registro> :nth-child(14) {
-  width: 6%;
-}
-
-main .content .registro> :nth-child(15) {
-  width: 6%;
-}
-
-main .content .registro> :nth-child(16) {
-  width: 13%;
+  width: 22%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-main .content .registro> :nth-child(16) p {
+main .content .registro> :nth-child(13) p {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;

@@ -24,9 +24,6 @@ function handleFile() {
       if (item.n_comp) {
         const fecha = new Date(1900, 0, item.f_comp - 1);
         const fechaBoleta = fecha.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
-        const montoSubTotal = item.s_bimp || 0
-        const montoExonerado = item.s_exon || 0
-        const montoInafecto = item.s_igv || 0
         const montoTotal = item.s_tota || 0
         plantilla += `
       <div class="registro">
@@ -41,13 +38,10 @@ function handleFile() {
         <div class="numeroSerie">${item.n_seri}</div>
         <div class="numeroComprobante">${item.n_comp}</div>
         <div class="RUC">${item.n_ruc}</div>
-        <div class="nombreEmpresa" title="${item.l_agen}">${item.l_agen}</div>
-        <div class="montoSubTotal">${montoSubTotal.toFixed(2) || 0}</div>
-        <div class="montoExonerado">${montoExonerado.toFixed(2) || 0}</div>
-        <div class="montoInafecto">${montoInafecto.toFixed(2) || 0}</div>
         <div class="montoTotal">${montoTotal.toFixed(2) || 0}</div>
-        <div class="autorizacionImprenta">${item.Auto_imprenta || ''}</div>
-        <div class="estado"></div>
+        <div class="estadoCp"></div>
+        <div class="estadoRuc"></div>
+        <div class="estadoCondDomiRuc"></div>
         <div class="resultado"></div>
         <div class="observaciones"></div>
       </div>

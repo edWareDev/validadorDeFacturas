@@ -1,18 +1,3 @@
-const runValidation = async (token, datosFactura) => {
-    const respuestaDeConsultaComprobante = await validateComprobante(token, datosFactura);
-    if (respuestaDeConsultaComprobante.success === false) {
-        return respuestaDeConsultaComprobante;
-    } else {
-        const estadoCp = respuestaDeConsultaComprobante.data.estadoCp
-        if (!estadoCp) {
-            return runValidation(token, datosFactura); // Llamada recursiva hasta obtener un estado válido
-        } else {
-            return respuestaDeConsultaComprobante.data;
-        }
-    }
-};
-
-
 const buttonStartScan = document.querySelector('#startScan')
 buttonStartScan.addEventListener('click', () => {
     const lista = []
@@ -91,6 +76,11 @@ const credencialesEmpresas = {
         client_id: 'f62e9e01-9785-4aa1-b777-cc374c5a61ba',
         client_secret: '+QmKau6xgyZ0Vz0/2EE/zw==',
         name: 'FIBRA ÓPTICA AMAZONICA DEL PERU'
+    },
+    contelco: {
+        client_id: '02e70c2b-eb6c-4e40-8eaf-97ce0f1d3563',
+        client_secret: 'HkV9dZD4F+KJppclEhhrzg==',
+        name: 'CONTRATISTAS Y CONSULTORES TELCO S.A.C. - CONTELCO S.A.C.'
     }
 }
 
@@ -114,7 +104,8 @@ async function validateLista(lista, itemsHTML, turbo, batchSize = 50) {
         '1': 'ACEPTADO',
         '2': 'ANULADO',
         '3': 'AUTORIZADO',
-        '4': 'NO AUTORIZADO'
+        '4': 'NO AUTORIZADO',
+        'F': 'ERROR'
     };
     const estadoRucMapping = {
         '00': 'ACTIVO',
@@ -123,24 +114,30 @@ async function validateLista(lista, itemsHTML, turbo, batchSize = 50) {
         '03': 'SUSPENSIÓN TEMPORAL',
         '10': 'BAJA DEFINITIVA',
         '11': 'BAJA DE OFICIO',
-        '22': 'INHABILITADO-VENT.UNICA'
+        '22': 'INHABILITADO-VENT.UNICA',
+        'F': 'ERROR'
     };
     const estadoCondDomiRuc = {
         '00': 'HABIDO',
         '09': 'PENDIENTE',
         '11': 'POR VERIFICAR',
         '12': 'NO HABIDO',
-        '20': 'NO HALLADO'
+        '20': 'NO HALLADO',
+        'F': 'ERROR'
     }
 
     if (!turbo) {
         for (let index = 0; index < lista.length; index++) {
             const item = lista[index];
             itemsHTML[index].querySelector('.estadoCp').innerText = "En proceso";
+            itemsHTML[index].querySelector('.estadoRuc').innerText = "En proceso";
+            itemsHTML[index].querySelector('.estadoCondDomiRuc').innerText = "En proceso";
             itemsHTML[index].querySelector('.resultado').innerText = "En proceso";
             document.querySelector('#current').innerHTML = index + 1;
 
-            item.status = await runValidation(tokenData.access_token, item);
+            // item.status = await runValidation(tokenData.access_token, item);
+            item.status = await validateComprobante(tokenData.access_token, item);
+
             const currenPercent = ((100 / lista.length) * (index + 1)) + '%';
             document.querySelector('.currentPos').style.width = currenPercent;
 
@@ -149,15 +146,31 @@ async function validateLista(lista, itemsHTML, turbo, batchSize = 50) {
                 itemsHTML[index].querySelector('.estadoRuc').innerText = '';
                 itemsHTML[index].querySelector('.estadoCondDomiRuc').innerText = '';
                 itemsHTML[index].querySelector('.observaciones').innerHTML = '';
+                itemsHTML[index].querySelector('.resultado').innerText = "Procesado";
+
             } else if (item.status?.estadoCp) {
-                itemsHTML[index].querySelector('.estadoCp').innerText = estadoCpMapping[item.status.estadoCp];
-                itemsHTML[index].querySelector('.estadoRuc').innerText = estadoRucMapping[item.status.estadoRuc] || '';
-                itemsHTML[index].querySelector('.estadoCondDomiRuc').innerText = estadoCondDomiRuc[item.status.condDomiRuc] || '';
-                itemsHTML[index].querySelector('.observaciones').innerHTML = `<p title="${item.status.observaciones || 'Sin Observaciones'}">${item.status.observaciones || 'Sin Observaciones'}</p>`;
+                if (item.status?.estadoCP === '0') {
+                    itemsHTML[index].querySelector('.estadoCp').innerText = estadoCpMapping[item.status.estadoCp];
+                    itemsHTML[index].querySelector('.estadoRuc').innerText = estadoRucMapping[item.status.estadoRuc] || '';
+                    itemsHTML[index].querySelector('.estadoCondDomiRuc').innerText = estadoCondDomiRuc[item.status.condDomiRuc] || '';
+                    itemsHTML[index].querySelector('.observaciones').innerHTML = `<p title="${item.status.observaciones || 'Sin Observaciones'}">${item.status.observaciones || 'Sin Observaciones'}</p>`;
+                    itemsHTML[index].querySelector('.resultado').innerText = "Procesado";
+
+                } else {
+                    if (!item.status?.estadoRuc || !item.status.condDomiRuc) {
+                        index--
+                    } else {
+                        itemsHTML[index].querySelector('.estadoCp').innerText = estadoCpMapping[item.status.estadoCp];
+                        itemsHTML[index].querySelector('.estadoRuc').innerText = estadoRucMapping[item.status.estadoRuc] || '';
+                        itemsHTML[index].querySelector('.estadoCondDomiRuc').innerText = estadoCondDomiRuc[item.status.condDomiRuc] || '';
+                        itemsHTML[index].querySelector('.observaciones').innerHTML = `<p title="${item.status.observaciones || 'Sin Observaciones'}">${item.status.observaciones || 'Sin Observaciones'}</p>`;
+                        itemsHTML[index].querySelector('.resultado').innerText = "Procesado";
+
+                    }
+                }
             } else if (!item.status.estadoCp) {
                 index--
             }
-            itemsHTML[index].querySelector('.resultado').innerText = "Procesado";
         }
         createXLSFile(itemsHTML)
     } else if (turbo) {
@@ -182,12 +195,12 @@ async function validateLista(lista, itemsHTML, turbo, batchSize = 50) {
                 resultadoElements[currentIndex + index] = itemsHTML[currentIndex + index].querySelector('.resultado');
                 observacionesElements[currentIndex + index] = itemsHTML[currentIndex + index].querySelector('.observaciones');
                 estadoCpElements[currentIndex + index].innerText = "En proceso";
-                estadoRUCElements[currentIndex + index].innerText = "";
-                estadoDomElements[currentIndex + index].innerText = "";
+                estadoRUCElements[currentIndex + index].innerText = "En proceso";
+                estadoDomElements[currentIndex + index].innerText = "En proceso";
                 resultadoElements[currentIndex + index].innerText = "En proceso";
                 currentElement.innerHTML = currentIndex + index + 1;
 
-                item.status = await runValidation(tokenData.access_token, item);
+                item.status = await validateComprobante(tokenData.access_token, item);
                 return item.status;
             });
 
@@ -205,7 +218,7 @@ async function validateLista(lista, itemsHTML, turbo, batchSize = 50) {
                     estadoCpElements[i].innerText = estadoCpMapping[itemStatus.estadoCp];
                     estadoRUCElements[i].innerText = estadoRucMapping[itemStatus.estadoRuc] || '';
                     estadoDomElements[i].innerText = estadoCondDomiRuc[itemStatus.condDomiRuc] || '';
-                    const observaciones = itemStatus.observaciones || 'Sin Observaciones';
+                    const observaciones = itemStatus?.observaciones?.length > 0 ? itemStatus.observaciones.join('/') : 'Sin observaciones';
                     observacionesElements[i].innerHTML = `<p title="${observaciones}">${observaciones}</p>`;
                 } else if (!itemStatus.estadoCp) {
                     i--;
@@ -255,6 +268,7 @@ async function getToken(clientId, clientSecret) {
 
 async function validateComprobante(token, datosFactura) {
     try {
+        console.log('Haciendo Solicitud');
         const response = await fetch("/api/validateCmp", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
@@ -264,16 +278,24 @@ async function validateComprobante(token, datosFactura) {
             }),
             redirect: 'follow'
         });
-
         if (response.ok) {
             const result = await response.json();
-            return result; // Puedes devolver el resultado si lo necesitas en otro lugar
+            console.log('RESUELTO');
+            return result.data; // Puedes devolver el resultado si lo necesitas en otro lugar
         } else {
-            throw new Error('Error en la solicitud HTTP');
+            return {
+                estadoCp: 'F',
+                estadoRuc: 'F',
+                conDomiRuc: 'F'
+            }
         }
     } catch (error) {
         console.log('error', error);
-        throw error; // Puedes lanzar el error si necesitas manejarlo en otro lugar
+        return {
+            estadoCp: 'F',
+            estadoRuc: 'F',
+            conDomiRuc: 'F'
+        }
     }
 }
 

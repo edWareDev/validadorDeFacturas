@@ -1,18 +1,22 @@
 <main>
-    <form class="inicio">
-        <label for="business">Seleccione la empresa:</label>
-        <select id="business" name="business">
-            <option value="sate">SATELITAL TELECOMUNICACIONES</option>
-            <option value="gf">GLOBAL FIBER PERU</option>
-            <option value="oye">INVERSIONES O & E</option>
-            <option value="cyg">OPERACIONES C & G</option>
-            <option value="syr">INVERSIONES Y OPERACIONES S & R</option>
-            <option value="myr">OPERACIONES M & R</option>
-            <option value="foa">FIBRA ÓPTICA AMAZONICA DEL PERU</option>
-            <option value="contelco">CONTRATISTAS Y CONSULTORES TELCO</option>
-        </select>
-        <button id="setBusiness">Ingresar</button>
-    </form>
+    <div class="inicio">
+        <div class="loader ">
+        </div>
+        <form class="businessSelection inv">
+            <label for="business">Seleccione la empresa:</label>
+            <select id="business" name="business">
+                <option value="sate">SATELITAL TELECOMUNICACIONES</option>
+                <option value="gf">GLOBAL FIBER PERU</option>
+                <option value="oye">INVERSIONES O & E</option>
+                <option value="cyg">OPERACIONES C & G</option>
+                <option value="syr">INVERSIONES Y OPERACIONES S & R</option>
+                <option value="myr">OPERACIONES M & R</option>
+                <option value="foa">FIBRA ÓPTICA AMAZONICA DEL PERU</option>
+                <option value="contelco">CONTRATISTAS Y CONSULTORES TELCO</option>
+            </select>
+            <button id="setBusiness">Ingresar</button>
+        </form>
+    </div>
     <div class="actions">
         <div class="logo">
             <h1>VALIDADOR</h1>
@@ -47,27 +51,15 @@
             </div>
         </div>
         <div class="buttons">
-            <span class="material-symbols-outlined unselectable" id="settings">
-                settings
+            <span class="material-symbols-outlined unselectable" id="new" title="Nueva Evaluación">
+                refresh
             </span>
-            <span class="material-symbols-outlined unselectable" id="startScan">
+            <span class="material-symbols-outlined unselectable" id="startScan" title="Iniciar Evaluación">
                 play_arrow
             </span>
-            <span class="material-symbols-outlined unselectable disabled" id="downloadFile">
+            <span class="material-symbols-outlined unselectable disabled" id="downloadFile" title="Descargar Reporte">
                 download
             </span>
-        </div>
-        <div class="modals inv">
-            <div class="settingsModal">
-                <label class="unselectable" for="turbo">
-                    <input type="checkbox" name="turbo" id="turbo">
-                    Turbo
-                </label>
-                <input type="number" value="20" min="10" max="100" id="turboPower">
-                <span class="material-symbols-outlined unselectable" id="saveSettings">
-                    done
-                </span>
-            </div>
         </div>
     </div>
     <div class="content">

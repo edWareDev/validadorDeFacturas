@@ -40,8 +40,32 @@ main .inicio {
   gap: 1rem;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
   align-items: center;
+  text-align: center;
+}
+
+main .inicio .loader {
+  width: 10rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1.6rem solid #fff;
+  border-right-color: #04AA6D;
+  animation: l2 1s infinite linear;
+}
+
+main .inicio .businessSelection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+@keyframes l2 {
+  to {
+    transform: rotate(1turn)
+  }
 }
 
 main .inicio label {
@@ -85,7 +109,7 @@ main .actions .logo {
   align-items: center;
 }
 
-main .actions .logo h1{
+main .actions .logo h1 {
   width: 100%;
   font-size: 1.4rem;
   text-align: center;

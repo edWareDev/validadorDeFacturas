@@ -1,0 +1,58 @@
+[
+    {
+        "id": "0",
+        "name": "SATELITAL TELECOMUNICACIONES",
+        "client_id": "cbeebb7e-79a9-4d1d-b2eb-9e087cb3a70d",
+        "client_secret": "MKdoAjoyeNVJdEFXT22rlA==",
+        "ruc": "20486496372"
+    },
+    {
+        "id": "1",
+        "name": "GLOBAL FIBER PERU",
+        "client_id": "9249c845-f8fd-4220-a390-78cf2c05cbc1",
+        "client_secret": "tkiMf9gM6H/2I/aYk8FTMA==",
+        "ruc": "20518777646"
+    },
+    {
+        "id": "2",
+        "name": "INVERSIONES O & E",
+        "client_id": "cc981d4c-cd89-4b4f-acc3-979eb5d03dd2",
+        "client_secret": "0/R/DF/rFsjAUYfuFrX04A==",
+        "ruc": "20611406909"
+    },
+    {
+        "id": "3",
+        "name": "OPERACIONES C & G",
+        "client_id": "15c21086-68ab-40a6-b5a3-a085c57d7298",
+        "client_secret": "Y8yLmsbn4sOCSZGAoZlCLQ==",
+        "ruc": "20611450339"
+    },
+    {
+        "id": "4",
+        "name": "INVERSIONES Y OPERACIONES S & R",
+        "client_id": "e0b657ea-0920-4689-ad74-058b76c5fa1e",
+        "client_secret": "YrgozGqYcKbzMXgdtm6OjQ==",
+        "ruc": "20611460083"
+    },
+    {
+        "id": "5",
+        "name": "OPERACIONES M & R",
+        "client_id": "3fd1323d-d31d-4f88-8c1e-b0257c3ddac3",
+        "client_secret": "0gKwKe3aIZ1h5U1FQR9YpQ==",
+        "ruc": "20611585889"
+    },
+    {
+        "id": "6",
+        "name": "FIBRA ÓPTICA AMAZONICA DEL PERU",
+        "client_id": "f62e9e01-9785-4aa1-b777-cc374c5a61ba",
+        "client_secret": "+QmKau6xgyZ0Vz0/2EE/zw==",
+        "ruc": "20608460595"
+    },
+    {
+        "id": "7",
+        "name": "CONTRATISTAS Y CONSULTORES TELCO S.A.C. - CONTELCO S.A.C.",
+        "client_id": "02e70c2b-eb6c-4e40-8eaf-97ce0f1d3563",
+        "client_secret": "HkV9dZD4F+KJppclEhhrzg==",
+        "ruc": "20610867651"
+    }
+]

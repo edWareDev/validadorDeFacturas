@@ -77,7 +77,6 @@ async function fetchComprobante(businessRuc, validateOptions, intentos = 0) {
                                 const responseDataRuc = await responseRuc.json()
                                 responseDataRuc.resultado.estado === 'ACTIVO' ? responseData.data.estadoRuc = '00' : responseData.data.estadoRuc = 'F'
                                 responseDataRuc.resultado.condicion === 'HABIDO' ? responseData.data.condDomiRuc = '00' : responseData.data.condDomiRuc = 'F'
-                                // console.log('RUC DOMI: ', responseData);
                             }
                             return responseData;
 

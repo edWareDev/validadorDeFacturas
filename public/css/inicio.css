@@ -306,7 +306,7 @@ main .content .tableHeader .registro div label input {
 
 main .content .tableBody {
   position: relative;
-  height: 90vh;
+  height: calc(100% - 4vh);
   overflow-y: scroll;
 }
 

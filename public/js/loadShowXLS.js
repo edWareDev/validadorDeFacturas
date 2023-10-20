@@ -30,7 +30,7 @@ function handleFile() {
       <div>${i + 1}</div>
         <div>
         <label for="regCheckbox">
-        <input style="width: 100%;" type="checkbox" name="regCheckbox" id="regCheckbox" checked>
+        <input type="checkbox" name="regCheckbox" id="regCheckbox" checked>
         </label>
         </div>
         <div class="fechaComprobante" title="${fechaBoleta}">${fechaBoleta}</div>

@@ -13,6 +13,19 @@ html {
   height: 100vh;
 }
 
+
+@media screen and (max-width: 1440px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  html {
+    font-size: 8px;
+  }
+}
+
 .inv {
   display: none !important;
 }
@@ -95,24 +108,39 @@ main .inicio button {
 }
 
 main .actions {
-  height: 6vh;
+  height: 5rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
 
 main .actions .logo {
-  width: 14%;
+  width: 20%;
   height: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
+}
+
+main .actions .logo #changeBusiness {
+  background-color: #04AA6D;
+  color: #fff;
+  padding: 0 1rem;
+  border-radius: 1rem;
+  height: 2rem;
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 main .actions .logo h1 {
   width: 100%;
   font-size: 1.4rem;
   text-align: center;
+  color: #04AA6D;
 }
 
 main .actions .loadOptions {
@@ -121,7 +149,7 @@ main .actions .loadOptions {
   align-items: center;
   border: 1px solid #04AA6D;
   border-radius: 1rem;
-  width: 20%;
+  width: 22%;
   height: 2rem;
   overflow: hidden;
 }
@@ -131,15 +159,23 @@ main .actions .loadOptions .buttonFile {
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  width: 84%;
+  width: 100%;
   cursor: pointer;
   color: #04AA6D;
   font-weight: 600;
   font-size: 1rem;
 }
 
+main .actions .loadOptions .buttonFile span {
+  font-size: 1.6rem;
+
+}
+
 main .actions .loadOptions>span {
-  width: 16%;
+  /* width: 16%; */
+  padding: 0 1rem;
+  height: 100%;
+  font-size: 1.6rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -163,7 +199,7 @@ main .actions .totalRegisters {
 }
 
 main .actions .progressBar {
-  width: 30%;
+  width: 25%;
   height: 2rem;
 }
 
@@ -201,7 +237,7 @@ main .actions .progressBar .allBar .currentPos {
 }
 
 main .actions .buttons {
-  width: 10%;
+  width: 8%;
   height: 2rem;
   display: flex;
   justify-content: space-around;
@@ -211,54 +247,13 @@ main .actions .buttons {
 main .actions .buttons span {
   background-color: #04AA6D;
   color: white;
-  width: 30%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 0 1rem;
   border-radius: 1rem;
-  cursor: pointer;
-}
-
-main .actions .modals {
-  position: absolute;
-  right: 2.4%;
-  top: .3rem;
-  width: 13.2rem;
-  border-radius: 1rem;
-  overflow: hidden;
-  background-color: blue;
-}
-
-main .actions .modals .settingsModal {
-  background-color: #04AA6D;
-  display: flex;
-  height: 3rem;
-  justify-content: center;
-  align-items: center;
-  gap: .6rem;
-}
-
-main .actions .modals .settingsModal label {
+  height: 2rem;
+  font-size: 1.6rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: .2rem;
-  color: white;
-  font-weight: 700;
-}
-
-main .actions .modals .settingsModal>input {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 25%;
-  height: 60%;
-  outline: none;
-  text-align: center;
-}
-
-main .actions .modals .settingsModal>span {
-  color: #fff;
   cursor: pointer;
 }
 
@@ -270,6 +265,7 @@ main .actions .buttons .disabled {
 main .content {
   background-color: white;
   max-width: 100%;
+  height: calc(100vh - 5rem);
   max-height: 100vh;
 }
 
@@ -281,7 +277,7 @@ main .content .tableHeader {
 
 main .content .tableHeader .registro {
   display: flex;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: white;
   text-align: center;
@@ -320,6 +316,14 @@ main .content .tableBody .registro {
   text-align: center;
 }
 
+main .content .tableBody .registro:nth-child(even) {
+  background-color: #0001;
+}
+
+main .content .tableBody .registro:nth-child(odd) {
+  background-color: #0000;
+}
+
 main .content .tableBody .registro div {
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
@@ -339,6 +343,9 @@ main .content .tableBody .registro div label input {
 
 main .content .registro div {
   padding: 4px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 main .content .registro> :nth-child(1) {
@@ -410,4 +417,176 @@ main .content .registro> :nth-child(13) p {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+
+
+main .content .assistant .imgContainer {
+  position: absolute;
+  bottom: 1rem;
+  right: 2rem;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 500;
+  border: .5rem dashed #04AA6D;
+}
+
+main .content .assistant img {
+  width: 70%;
+  height: 70%;
+}
+
+main .content .assistant .validacionIndividual .imgContainer {
+  cursor: pointer;
+  opacity: .6;
+}
+
+main .content .assistant .validacionIndividual .imgContainer:hover {
+  opacity: 1;
+}
+
+main .content .assistant .validacionIndividual .modalVI {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0005;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .5rem;
+  align-items: center;
+}
+
+main .content .assistant .validacionIndividual .modalVI .individualValidation {
+  position: relative;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: #026e46;
+  border-radius: 1rem;
+  width: 54rem;
+}
+
+main .content .assistant .validacionIndividual .modalVI .individualValidation .closeButton {
+  position: absolute;
+  top: -2.4rem;
+  right: -2.4rem;
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 900;
+  background-color: #04AA6D;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  justify-content: center;
+  border-radius: .5rem;
+  align-items: center;
+  cursor: pointer;
+}
+
+main .content .assistant .validacionIndividual .modalVI .individualValidation label {
+  width: 48%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  /* gap: 1rem; */
+}
+
+main .content .assistant .validacionIndividual .modalVI .individualValidation label p {
+  width: 56%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: 600;
+}
+
+main .content .assistant .validacionIndividual .modalVI .individualValidation label input {
+  width: 44%;
+  outline: none;
+  text-align: center;
+  padding: .2rem .5rem;
+  /* border-radius: .5rem; */
+  /* margin-right: 2rem; */
+}
+
+main .content .assistant .validacionIndividual .modalVI .individualValidation button {
+  background-color: #fff;
+  color: #026e46;
+  font-weight: 600;
+  border: 1px solid #fff;
+  padding: .2rem .6rem;
+  cursor: pointer;
+}
+
+main .content .assistant .validacionIndividual .modalVI .resultIndividualValidation {
+  background-color: #fff;
+  width: 54rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  font-size: 1.2rem;
+  border-radius: 1rem;
+}
+
+main .content .assistant .validacionIndividual .modalVI .resultIndividualValidation .loader {
+  width: 10rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1.6rem solid #fff;
+  border-right-color: #04AA6D;
+  animation: l2 1s infinite linear;
+}
+
+
+main .content .assistant .validacionIndividual .modalVI .resultIndividualValidation span {
+  color: #026e46;
+  font-weight: 600;
+}
+
+main .content .assistant .informante {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 600;
+  height: 10rem;
+  width: 30rem;
+  transition: opacity .3s;
+
+}
+
+main .content .assistant .informante:hover {
+  opacity: .2;
+}
+
+main .content .assistant .informante .msgContainer {
+  background-color: #fff;
+  border: 1px solid #026e46;
+  border-radius: 1rem;
+  width: 60%;
+  height: 60%;
+  display: flex;
+  font-size: 1.1rem;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2rem;
+  padding: .2rem;
+  text-align: center;
 }

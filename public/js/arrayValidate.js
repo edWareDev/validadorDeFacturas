@@ -1,8 +1,75 @@
+function disableAllCheckbox(boolean) {
+    // const allCbxs = document.querySelectorAll('input[type="checkbox"]')
+    const allCbxs = document.querySelectorAll('input')
+    allCbxs.forEach(cbx => {
+        cbx.disabled = boolean
+    })
+}
+
+let tokenData = '';
+let idBusinessSelected = ''
+
+const estadoCpMapping = {
+    '0': 'NO EXISTE',
+    '1': 'ACEPTADO',
+    '2': 'ANULADO',
+    '3': 'AUTORIZADO',
+    '4': 'NO AUTORIZADO',
+    'F': 'ERROR'
+};
+const estadoRucMapping = {
+    '00': 'ACTIVO',
+    '01': 'BAJA PROVISIONAL',
+    '02': 'BAJA PROVISIONAL POR OFICIO',
+    '03': 'SUSPENSIÓN TEMPORAL',
+    '10': 'BAJA DEFINITIVA',
+    '11': 'BAJA DE OFICIO',
+    '22': 'INHABILITADO-VENT.UNICA',
+    'F': 'ERROR'
+};
+const estadoCondDomiRuc = {
+    '00': 'HABIDO',
+    '09': 'PENDIENTE',
+    '11': 'POR VERIFICAR',
+    '12': 'NO HABIDO',
+    '20': 'NO HALLADO',
+    'F': 'ERROR'
+}
+
+const areaInicio = document.querySelector('.inicio')
+const buttonSetBusiness = document.querySelector('#setBusiness')
+buttonSetBusiness.addEventListener('click', async (e) => {
+    const loader = document.querySelector('.loader')
+    const businessSelection = document.querySelector('.businessSelection')
+    loader.classList.remove('inv')
+    businessSelection.classList.add('inv')
+    e.preventDefault()
+    const businessSelected = document.querySelector('#business')
+    // Obtener el valor seleccionado
+
+    // Buscar la opción con el valor seleccionado
+    var opciones = businessSelected.options;
+    for (var i = 0; i < opciones.length; i++) {
+        if (opciones[i].value === businessSelected.value) {
+            // Mostrar el nombre de la opción en un elemento HTML
+            document.querySelector('h1').innerText = opciones[i].text
+            break; // Salir del bucle una vez que se encuentre la opción
+        }
+    }
+    idBusinessSelected = businessSelected.value
+    tokenData = await getToken(businessSelected.value);
+    if (tokenData) {
+        areaInicio.classList.add('inv')
+    }
+})
+
 const buttonStartScan = document.querySelector('#startScan')
 buttonStartScan.addEventListener('click', () => {
+    cantidadSolicitudesResueltas = 0
     const lista = []
     const itemsHTML = []
     const allRegistros = document.querySelector('.tableBody').querySelectorAll('.registro')
+    showModals('2')
     allRegistros.forEach(itemRegistro => {
         if (itemRegistro.querySelector('#regCheckbox').checked === true) {
             const newObjectRegister =
@@ -33,72 +100,9 @@ buttonStartScan.addEventListener('click', () => {
     }
 })
 
-function disableAllCheckbox(boolean) {
-    // const allCbxs = document.querySelectorAll('input[type="checkbox"]')
-    const allCbxs = document.querySelectorAll('input')
-    allCbxs.forEach(cbx => {
-        cbx.disabled = boolean
-    })
-}
-
-let tokenData = '';
-let idBusinessSelected = ''
-const areaInicio = document.querySelector('.inicio')
-const buttonSetBusiness = document.querySelector('#setBusiness')
-buttonSetBusiness.addEventListener('click', async (e) => {
-    const loader = document.querySelector('.loader')
-    const businessSelection = document.querySelector('.businessSelection')
-    loader.classList.remove('inv')
-    businessSelection.classList.add('inv')
-    e.preventDefault()
-    const businessSelected = document.querySelector('#business')
-    // Obtener el valor seleccionado
-
-    // Buscar la opción con el valor seleccionado
-    var opciones = businessSelected.options;
-    for (var i = 0; i < opciones.length; i++) {
-        if (opciones[i].value === businessSelected.value) {
-            // Mostrar el nombre de la opción en un elemento HTML
-            document.querySelector('h1').innerText = opciones[i].text
-            break; // Salir del bucle una vez que se encuentre la opción
-        }
-    }
-    idBusinessSelected = businessSelected.value
-    tokenData = await getToken(businessSelected.value);
-    if (tokenData) {
-        areaInicio.classList.add('inv')
-    }
-})
-
 // CODIGO DE FUNCIONAMIENTO EN INDIVIDUAL
 async function validateLista(lista, itemsHTML, batchSize = 20) {
     console.time("Tiempo De Procesamiento");
-    const estadoCpMapping = {
-        '0': 'NO EXISTE',
-        '1': 'ACEPTADO',
-        '2': 'ANULADO',
-        '3': 'AUTORIZADO',
-        '4': 'NO AUTORIZADO',
-        'F': 'ERROR'
-    };
-    const estadoRucMapping = {
-        '00': 'ACTIVO',
-        '01': 'BAJA PROVISIONAL',
-        '02': 'BAJA PROVISIONAL POR OFICIO',
-        '03': 'SUSPENSIÓN TEMPORAL',
-        '10': 'BAJA DEFINITIVA',
-        '11': 'BAJA DE OFICIO',
-        '22': 'INHABILITADO-VENT.UNICA',
-        'F': 'ERROR'
-    };
-    const estadoCondDomiRuc = {
-        '00': 'HABIDO',
-        '09': 'PENDIENTE',
-        '11': 'POR VERIFICAR',
-        '12': 'NO HABIDO',
-        '20': 'NO HALLADO',
-        'F': 'ERROR'
-    }
 
     const totalItems = lista.length;
     const estadoCpElements = [];
@@ -124,6 +128,7 @@ async function validateLista(lista, itemsHTML, batchSize = 20) {
             estadoRUCElements[currentIndex + index].innerText = "En proceso";
             estadoDomElements[currentIndex + index].innerText = "En proceso";
             resultadoElements[currentIndex + index].innerText = "En proceso";
+            observacionesElements[currentIndex + index].innerText = "En proceso";
             currentElement.innerHTML = currentIndex + index + 1;
             item.status = await validateComprobante(tokenData.access_token, item, idBusinessSelected);
             return item.status;
@@ -138,7 +143,7 @@ async function validateLista(lista, itemsHTML, batchSize = 20) {
             currentPosElement.style.width = currentPercent;
 
             if (itemStatus.success === false) {
-                estadoCpElements[i].innerText = itemStatus.message;
+                observacionesElements[i].innerHTML = `<p title="${itemStatus.message}">${itemStatus.message}</p>`;
             } else if (itemStatus?.estadoCp) {
                 estadoCpElements[i].innerText = estadoCpMapping[itemStatus.estadoCp];
                 estadoRUCElements[i].innerText = estadoRucMapping[itemStatus.estadoRuc] || '';
@@ -190,7 +195,8 @@ async function getToken(businessId) {
 
 async function validateComprobante(token, datosFactura, idBusinessSelected) {
     try {
-        console.log('Haciendo Solicitud');
+        // console.log('Haciendo Solicitud');
+        updateInformante('+')
         const response = await fetch("/api/validateCmp", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
@@ -203,13 +209,15 @@ async function validateComprobante(token, datosFactura, idBusinessSelected) {
         });
         if (response.ok) {
             const result = await response.json();
-            console.log('RESUELTO');
+            // console.log('RESUELTO');
+            updateInformante('-')
             return result.data; // Puedes devolver el resultado si lo necesitas en otro lugar
         } else {
             return {
                 estadoCp: 'F',
                 estadoRuc: 'F',
-                conDomiRuc: 'F'
+                condDomiRuc: 'F',
+                observaciones: ['Error, no se obtuvo respuesta de Sunat']
             }
         }
     } catch (error) {
@@ -217,7 +225,8 @@ async function validateComprobante(token, datosFactura, idBusinessSelected) {
         return {
             estadoCp: 'F',
             estadoRuc: 'F',
-            conDomiRuc: 'F'
+            condDomiRuc: 'F',
+            observaciones: ['Error, no se puede acceder al servidor local.']
         }
     }
 }
@@ -228,12 +237,14 @@ function actionsToDoOnFinish() {
     console.timeEnd("Tiempo De Procesamiento");
     disableAllCheckbox(false)
     document.querySelector('#checkFile').style.display = 'flex';
+    showModals('1')
 
     const buttonDownload = document.querySelector("#downloadFile");
     buttonStartScan.classList.remove('disabled');
     buttonStartScan.classList.remove('inv');
     buttonDownload.classList.remove('disabled');
-    alert('Proceso Finalizado')
+    // alert('Proceso Finalizado')
+    ntfProcesoFinalizado()
     if (!listenerDownloadEnabled) {
         listenerDownloadEnabled = true
         buttonDownload.addEventListener('click', () => {
@@ -281,3 +292,82 @@ function createXLSFile() {
     const filename = document.querySelector('.filename')
     XLSX.writeFile(workbook, 'val_' + filename.innerText);
 }
+
+function showModals(state) {
+    const validacionIndividual = document.querySelector(".validacionIndividual")
+    const informante = document.querySelector('.informante')
+    if (state === '0') {
+        validacionIndividual.classList.add('inv')
+        informante.classList.add('inv')
+    } else if (state === '1') {
+        validacionIndividual.classList.remove('inv')
+        informante.classList.add('inv')
+    } else if (state === '2') {
+        validacionIndividual.classList.add('inv')
+        informante.classList.remove('inv')
+    }
+}
+
+var cantidadSolicitudesResueltas = 0
+const informanteMsg = document.querySelector('.informante .msgContainer .msg')
+function updateInformante(tipo) {
+
+    if (tipo === '+') {
+        cantidadSolicitudesResueltas++
+    } else if (tipo === '-') {
+        cantidadSolicitudesResueltas--
+    }
+    const mensaje = cantidadSolicitudesResueltas === 1 ? 'Espera un poco más por favor. Estoy a la espera de un comprobante.' : `Espera por favor. Estoy esperando el estado de ${cantidadSolicitudesResueltas} comprobantes.`
+    informanteMsg.innerText = mensaje
+}
+function enableIndivudualValidation() {
+    const individualButton = document.querySelector('.validacionIndividual .imgContainer')
+    const modalValidatiionIndividual = document.querySelector('.modalVI')
+    individualButton.addEventListener('click', () => {
+        modalValidatiionIndividual.classList.remove('inv')
+        individualButton.classList.add('inv')
+    })
+    const evaluarButton = document.querySelector('.evaluarIV')
+    const formIV = document.querySelector('.individualValidation')
+    const areaRespuesta = document.querySelector('.resultIndividualValidation')
+    const loaderRespuesta = document.querySelector('.resultIndividualValidation .loader')
+    const estadoComprobante = document.querySelector('.estadoComprobante')
+    const estadoRuc = document.querySelector('.estadoRuc')
+    const estadoDomicilioRuc = document.querySelector('.estadoDomicilioRuc')
+    const observaciones = document.querySelector('.observaciones')
+    evaluarButton.addEventListener('click', async (e) => {
+        e.preventDefault()
+        evaluarButton.classList.add('inv')
+        areaRespuesta.classList.remove('inv')
+        loaderRespuesta.classList.remove('inv')
+        const datosFormulario = new FormData(formIV)
+        const datosCliente = {
+            numRuc: datosFormulario.get('rucEmisor'),
+            fechaEmision: datosFormulario.get('fechaEmision'),
+            codComp: datosFormulario.get('codigoComprobante'),
+            numeroSerie: datosFormulario.get('numeroSerie'),
+            numero: datosFormulario.get('numeroComprobante'),
+            monto: datosFormulario.get('montoTotal')
+        }
+        datosCliente.fechaEmision = datosCliente.fechaEmision.split('-').reverse().join('/');
+        const respuesta = await validateComprobante(tokenData.access_token, datosCliente, idBusinessSelected);
+        evaluarButton.classList.remove('inv')
+        loaderRespuesta.classList.add('inv')
+        if (respuesta) {
+            estadoComprobante.innerHTML = `Estado Comprobante: <span>${estadoCpMapping[respuesta.estadoCp]}</span>`
+            estadoRuc.innerHTML = `Estado RUC: <span>${estadoRucMapping[respuesta.estadoRuc]}</span>`
+            estadoDomicilioRuc.innerHTML = `Estado Domicilio: <span>${estadoCondDomiRuc[respuesta.condDomiRuc]}</span>`
+            const strObservaciones = observaciones.length > 0 ? observaciones.join(',') : 'Sin Observaciones'
+            observaciones.innerHTML = `Observaciones: <span>${strObservaciones}</span>`
+        } else {
+            areaRespuesta.innerText = 'ERROR'
+        }
+    })
+    const closeButton = document.querySelector('.closeButton')
+    closeButton.addEventListener('click', () => {
+        modalValidatiionIndividual.classList.add('inv')
+        individualButton.classList.remove('inv')
+        areaRespuesta.classList.add('inv')
+    })
+}
+enableIndivudualValidation()

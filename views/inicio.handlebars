@@ -1,6 +1,6 @@
 <main>
     <div class="inicio">
-        <div class="loader ">
+        <div class="loader">
         </div>
         <form class="businessSelection inv">
             <label for="business">Seleccione la empresa:</label>
@@ -18,11 +18,16 @@
         </form>
     </div>
     <div class="actions">
+        {{!-- 20 --}}
         <div class="logo">
+            <span class="material-symbols-outlined unselectable" id="changeBusiness" title="Cmabiar Empresa">
+                refresh
+            </span>
             <h1>VALIDADOR</h1>
         </div>
-        <div class="loadOptions">
-            <input style="display: none;" type="file" id="excelFileInput" />
+        {{!-- 20 --}}
+        <div class="loadOptions" title="Cargar archivo">
+            <input style="display: none;" type="file" id="excelFileInput" accept=".xls,.xlsx" />
             <div class="buttonFile">
                 <span class="material-symbols-outlined">
                     ads_click
@@ -31,14 +36,16 @@
                     Cargar Archivo...
                 </div>
             </div>
-            <span id="checkFile" class="material-symbols-outlined inv">
+            <span id="checkFile" class="material-symbols-outlined">
                 cloud_upload
             </span>
         </div>
+        {{!-- 12 --}}
         <div class="totalRegisters">
             Registros Totales: <span id="total"
                 title="Indica la cantidad de filas ocupadas en el archivo Excel, si hay filas vacías contarán, pero no aparecerán.">0</span>
         </div>
+        {{!-- 20 --}}
         <div class="progressBar">
             <div class="allBar">
                 <div class="progressInfo">
@@ -50,10 +57,8 @@
                 </div>
             </div>
         </div>
+        {{!-- 10 --}}
         <div class="buttons">
-            <span class="material-symbols-outlined unselectable" id="new" title="Nueva Evaluación">
-                refresh
-            </span>
             <span class="material-symbols-outlined unselectable" id="startScan" title="Iniciar Evaluación">
                 play_arrow
             </span>
@@ -87,8 +92,74 @@
         <div class="tableBody">
 
         </div>
+        <div class="assistant">
+            <div class="validacionIndividual">
+                <div class="imgContainer" title="Evaluar un comprobante">
+                    <img src="./images/documentIcon.png" alt="Icono de Validación Individual">
+                </div>
+                <div class="modalVI inv">
+                    <form class="individualValidation">
+                        <div class="closeButton" title="Cerrar Evaluación Individual">X</div>
+                        <label for="fechaEmision">
+                            <p>
+                                Fecha de Emisión:
+                            </p>
+                            <input type="date" name="fechaEmision" id="fechaEmision">
+                        </label>
+                        <label for="codigoComprobante">
+                            <p>
+                                Código de Comprobante:
+                            </p>
+                            <input type="text" name="codigoComprobante" id="codigoComprobante">
+                        </label>
+                        <label for="numeroSerie">
+                            <p>
+                                Número de Serie:
+                            </p>
+                            <input type="text" name="numeroSerie" id="numeroSerie">
+                        </label>
+                        <label for="numeroComprobante">
+                            <p>
+                                Número de Comprobante:
+                            </p>
+                            <input type="text" name="numeroComprobante" id="numeroComprobante">
+                        </label>
+                        <label for="rucEmisor">
+                            <p>
+                                RUC:
+                            </p>
+                            <input type="text" name="rucEmisor" id="rucEmisor">
+                        </label>
+                        <label for="montoTotal">
+                            <p>
+                                Monto Total:
+                            </p>
+                            <input type="text" name="montoTotal" id="montoTotal">
+                        </label>
+                        <button class="evaluarIV">Evaluar</button>
+                    </form>
+                    <div class="resultIndividualValidation inv">
+                        <div class="loader">
+                        </div>
+                        <div class="estadoComprobante"></div>
+                        <div class="estadoRuc"></div>
+                        <div class="estadoDomicilioRuc"></div>
+                        <div class="observaciones"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="informante inv">
+                <div class="msgContainer">
+                    <p class="msg">Estoy a la espera de 1 comprobante nada mes esperate un poco socio.</p>
+                </div>
+                <div class="imgContainer" title="Evaluar un comprobante">
+                    <img src="./images/assistantIcon.png" alt="Icono de Informante">
+                </div>
+            </div>
+        </div>
     </div>
 </main>
+<script src="./js/enableNotification.js"></script>
 <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 <script src="./js/loadShowXLS.js"></script>
 <script src="./js/script.js"></script>

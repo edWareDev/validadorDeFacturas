@@ -29,25 +29,28 @@ const showAllBusiness = async () => {
     }
 }
 
-const buttonLoadFile = document.querySelector('.buttonFile')
+const buttonLoadFile = document.querySelector('.loadOptions')
 const buttonLoadFileHidden = document.querySelector('#excelFileInput')
 buttonLoadFile.addEventListener('click', () => {
     document.querySelector('#excelFileInput').click()
-    buttonLoadFileHidden
 })
 buttonLoadFileHidden.addEventListener('change', () => {
     document.querySelector('.filename').innerHTML = buttonLoadFileHidden.files[0]?.name
-    document.querySelector('#checkFile').classList.remove('inv')
+    handleFile()
 });
 
-// const buttonSettings = document.querySelector('#settings')
-// buttonSettings.addEventListener('click', () => {
-//     document.querySelector('.modals').classList.remove('inv')
-// })
+const buttonChangeBusiness = document.querySelector('#changeBusiness')
+buttonChangeBusiness.addEventListener('click', () => {
+    const cambiarEmpresa = confirm('¿Estás seguro que deseas salir?')
 
-const checkFile = document.querySelector('#checkFile')
-checkFile.addEventListener('click', () => {
-    handleFile()
+    if (cambiarEmpresa) {
+        location.reload()
+    }
 })
+
+// const checkFile = document.querySelector('#checkFile')
+// checkFile.addEventListener('click', () => {
+//     handleFile()
+// })
 
 showAllBusiness()

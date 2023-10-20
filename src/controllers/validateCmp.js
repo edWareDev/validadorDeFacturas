@@ -75,10 +75,9 @@ async function fetchComprobante(businessRuc, validateOptions, intentos = 0) {
                             const responseRuc = await fetch(`https://api.perudevs.com/api/v1/ruc?document=${RUC}&key=cGVydWRldnMucHJvZHVjdGlvbi5maXRjb2RlcnMuNjUyZGM4NmIxZTRjZmUyNGY0ZjZjNWNk`)
                             if (response.status === 200) {
                                 const responseDataRuc = await responseRuc.json()
-                                responseDataRuc.resultado.estado === 'ACTIVO' ? responseDataRuc.resultado.estado = '00' : responseDataRuc.resultado.estado = 'F'
-                                responseData.data.estadoRuc = responseDataRuc.resultado.estado
-                                responseDataRuc.resultado.condicion === 'HABIDO' ? responseDataRuc.resultado.condicion = '00' : responseDataRuc.resultado.condicion = 'F'
-                                responseData.data.condDomiRuc = responseDataRuc.resultado.condicion
+                                responseDataRuc.resultado.estado === 'ACTIVO' ? responseData.data.estadoRuc = '00' : responseData.data.estadoRuc = 'F'
+                                responseDataRuc.resultado.condicion === 'HABIDO' ? responseData.data.condDomiRuc = '00' : responseData.data.condDomiRuc = 'F'
+                                // console.log('RUC DOMI: ', responseData);
                             }
                             return responseData;
 

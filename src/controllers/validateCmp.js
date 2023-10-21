@@ -81,7 +81,11 @@ async function fetchComprobante(businessRuc, validateOptions, intentos = 0) {
                         //     return responseData;
 
                         // } else {
-                        return fetchComprobante(businessRuc, validateOptions, intentos);
+                        if (responseData.data?.estadoCp === '0') {
+                            return responseData
+                        } else {
+                            return fetchComprobante(businessRuc, validateOptions, intentos);
+                        }
                         // }
 
                     }

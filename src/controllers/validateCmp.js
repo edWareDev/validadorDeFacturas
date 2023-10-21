@@ -68,21 +68,21 @@ async function fetchComprobante(businessRuc, validateOptions, intentos = 0) {
                     if (responseData.data.estadoRuc && responseData.data.condDomiRuc) {
                         return responseData;
                     } else {
-                        if (intentos <= 0) {
-                            console.log('INTENTANDO EXTERNAMENTE');
-                            const RUC = JSON.parse(validateOptions.body)?.numRuc
-                            console.log(RUC);
-                            const responseRuc = await fetch(`https://api.perudevs.com/api/v1/ruc?document=${RUC}&key=cGVydWRldnMucHJvZHVjdGlvbi5maXRjb2RlcnMuNjUyZGM4NmIxZTRjZmUyNGY0ZjZjNWNk`)
-                            if (response.status === 200) {
-                                const responseDataRuc = await responseRuc.json()
-                                responseDataRuc.resultado.estado === 'ACTIVO' ? responseData.data.estadoRuc = '00' : responseData.data.estadoRuc = 'F'
-                                responseDataRuc.resultado.condicion === 'HABIDO' ? responseData.data.condDomiRuc = '00' : responseData.data.condDomiRuc = 'F'
-                            }
-                            return responseData;
+                        // if (intentos <= 0) {
+                        //     console.log('INTENTANDO EXTERNAMENTE');
+                        //     const RUC = JSON.parse(validateOptions.body)?.numRuc
+                        //     console.log(RUC);
+                        //     const responseRuc = await fetch(`https://api.perudevs.com/api/v1/ruc?document=${RUC}&key=cGVydWRldnMucHJvZHVjdGlvbi5maXRjb2RlcnMuNjUyZGM4NmIxZTRjZmUyNGY0ZjZjNWNk`)
+                        //     if (response.status === 200) {
+                        //         const responseDataRuc = await responseRuc.json()
+                        //         responseDataRuc.resultado.estado === 'ACTIVO' ? responseData.data.estadoRuc = '00' : responseData.data.estadoRuc = 'F'
+                        //         responseDataRuc.resultado.condicion === 'HABIDO' ? responseData.data.condDomiRuc = '00' : responseData.data.condDomiRuc = 'F'
+                        //     }
+                        //     return responseData;
 
-                        } else {
-                            return fetchComprobante(businessRuc, validateOptions, intentos - 1);
-                        }
+                        // } else {
+                        return fetchComprobante(businessRuc, validateOptions, intentos);
+                        // }
 
                     }
                 } else {

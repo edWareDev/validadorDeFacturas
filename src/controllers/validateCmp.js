@@ -117,7 +117,7 @@ function fetchWithTimeout(url, validateOptions) {
             console.log(JSON.parse(validateOptions.body).numero);
             console.log('Tiempo de espera Agotado');
             resolve({});
-        }, 15000);
+        }, 20000);
     });
 
     return Promise.race([fetchPromise, timeoutPromise]);

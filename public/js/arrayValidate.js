@@ -25,7 +25,7 @@ const estadoRucMapping = {
     '10': 'BAJA DEFINITIVA',
     '11': 'BAJA DE OFICIO',
     '22': 'INHABILITADO-VENT.UNICA',
-    'F': 'ERROR'
+    'F': '--'
 };
 const estadoCondDomiRuc = {
     '00': 'HABIDO',
@@ -33,7 +33,7 @@ const estadoCondDomiRuc = {
     '11': 'POR VERIFICAR',
     '12': 'NO HABIDO',
     '20': 'NO HALLADO',
-    'F': 'ERROR'
+    'F': '--'
 }
 
 const areaInicio = document.querySelector('.inicio')
@@ -213,20 +213,22 @@ async function validateComprobante(token, datosFactura, idBusinessSelected) {
             updateInformante('-')
             return result.data; // Puedes devolver el resultado si lo necesitas en otro lugar
         } else {
+            updateInformante('-')
             return {
                 estadoCp: 'F',
                 estadoRuc: 'F',
                 condDomiRuc: 'F',
-                observaciones: ['Error, no se obtuvo respuesta de Sunat']
+                observaciones: ['No se obtuvo respuesta de Sunat']
             }
         }
     } catch (error) {
         console.log('error', error);
+        updateInformante('-')
         return {
             estadoCp: 'F',
             estadoRuc: 'F',
             condDomiRuc: 'F',
-            observaciones: ['Error, no se puede acceder al servidor local.']
+            observaciones: ['No se obtuvo respuesta de Sunat.']
         }
     }
 }

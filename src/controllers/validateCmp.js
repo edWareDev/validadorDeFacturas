@@ -51,14 +51,15 @@ export async function validateCmp(req, res) {
         const respuesta = await fetchComprobante(client_ruc, validateOptions)
         res.status(200).json(respuesta);
     } catch (err) {
-        console.error(err);
+        console.error('ERROR validateCpm BE:', err);
         res.status(504).json({});
     }
 };
 
 async function fetchComprobante(businessRuc, validateOptions, intentos = 0) {
     try {
-        const response = await fetch(`https://api.sunat.gob.pe/v1/contribuyente/contribuyentes/${businessRuc}/validarcomprobante`, validateOptions);
+        const url = `https://api.sunat.gob.pe/v1/contribuyente/contribuyentes/${businessRuc}/validarcomprobante`
+        const response = await fetchWithTimeout(url, validateOptions);
         if (response.status === 200) {
             const responseData = await response.json();
             if (responseData.success) {
@@ -94,11 +95,30 @@ async function fetchComprobante(businessRuc, validateOptions, intentos = 0) {
                 }
             } else {
                 // Manejo de errores si la respuesta no es 200
-                throw new Error(`Failed to fetch. Status: ${response.status}`);
+                throw new Error(`${+Date} Error al enviar orden:. Status: ${response.status}`);
             }
         }
     } catch (err) {
         console.error(err);
-        throw new Error('Failed to fetch');
+        throw new Error(`${+Date} Falla al enviar`);
     }
+}
+
+
+function fetchWithTimeout(url, validateOptions) {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    const fetchPromise = fetch(url, { ...validateOptions, signal });
+
+    const timeoutPromise = new Promise((resolve) => {
+        setTimeout(() => {
+            controller.abort();
+            console.log(JSON.parse(validateOptions.body).numero);
+            console.log('Tiempo de espera Agotado');
+            resolve({});
+        }, 10000);
+    });
+
+    return Promise.race([fetchPromise, timeoutPromise]);
 }

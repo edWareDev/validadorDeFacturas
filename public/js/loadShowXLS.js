@@ -33,12 +33,12 @@ function handleFile() {
         <input type="checkbox" name="regCheckbox" id="regCheckbox" checked>
         </label>
         </div>
-        <div class="fechaComprobante" title="${fechaBoleta}">${fechaBoleta}</div>
-        <div class="codigoComprobante">${item.c_comp}</div>
-        <div class="numeroSerie">${item.n_seri}</div>
+        <div class="fechaComprobante" title="${fechaBoleta}">${fechaBoleta.trim()}</div>
+        <div class="codigoComprobante">${(item.c_comp).trim()}</div>
+        <div class="numeroSerie">${(item.n_seri).trim()}</div>
         <div class="numeroComprobante">${item.n_comp}</div>
         <div class="RUC">${item.n_ruc}</div>
-        <div class="montoTotal">${montoTotal.toFixed(2) || 0}</div>
+        <div class="montoTotal">${(montoTotal.toFixed(2) || 0).trim()}</div>
         <div class="estadoCp"></div>
         <div class="estadoRuc"></div>
         <div class="estadoCondDomiRuc"></div>

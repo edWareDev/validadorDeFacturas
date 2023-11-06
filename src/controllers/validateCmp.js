@@ -82,7 +82,7 @@ async function fetchComprobante(businessRuc, validateOptions, intentos = 0) {
                         //     return responseData;
 
                         // } else {
-                        if (responseData.data?.estadoCp === '0') {
+                        if (responseData.data?.estadoCp === '0' || responseData.data?.estadoCp === '4') {
                             return responseData
                         } else {
                             return fetchComprobante(businessRuc, validateOptions, intentos);

@@ -54,5 +54,12 @@
         "client_id": "02e70c2b-eb6c-4e40-8eaf-97ce0f1d3563",
         "client_secret": "HkV9dZD4F+KJppclEhhrzg==",
         "ruc": "20610867651"
+    },
+    {
+        "id": "8",
+        "name": "ROCA FUERTE SOCIEDAD ANONIMA CERRADA",
+        "client_id": "d81df265-989f-447d-8b90-024564a1e729",
+        "client_secret": "r/CwRVkpt67nvNlFXuOW8Q==",
+        "ruc": "20486774283"
     }
 ]

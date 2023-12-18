@@ -25,6 +25,7 @@ function handleFile() {
         const fecha = new Date(1900, 0, item.f_comp - 1);
         const fechaBoleta = fecha.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
         const montoTotal = item.s_tota || 0
+        console.log(item);
         plantilla += `
       <div class="registro">
       <div>${i + 1}</div>

@@ -61,5 +61,26 @@
         "client_id": "d81df265-989f-447d-8b90-024564a1e729",
         "client_secret": "r/CwRVkpt67nvNlFXuOW8Q==",
         "ruc": "20486774283"
+    },
+    {
+        "id": "9",
+        "name": "DDP MOTOR CENTERS",
+        "client_id": "15346461-e86e-4380-bd8d-8355ea95a329",
+        "client_secret": "IqX8DIUBZ/CWUaoFlkmJIQ==",
+        "ruc": "20610108122"
+    },
+    {
+        "id": "10",
+        "name": "CONSULTORES Y PROYECTOS AMAZONICOS",
+        "client_id": "993d49fa-4236-4550-8eb5-0e7f6abb5fc8",
+        "client_secret": "oET3R+jb9wUbRlDqVWZyxw==",
+        "ruc": "20611070463"
+    },
+    {
+        "id": "11",
+        "name": "LEGAL OPERATIONS",
+        "client_id": "f65893aa-869b-4d5e-a731-1bbcd42c9cd5",
+        "client_secret": "udnfkba9YFVI2FCHqqWZ0A==",
+        "ruc": "20609018918"
     }
 ]

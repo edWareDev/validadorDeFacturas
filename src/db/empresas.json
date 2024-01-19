@@ -82,5 +82,12 @@
         "client_id": "f65893aa-869b-4d5e-a731-1bbcd42c9cd5",
         "client_secret": "udnfkba9YFVI2FCHqqWZ0A==",
         "ruc": "20609018918"
+    },
+    {
+        "id": "12",
+        "name": "OPERACION Y PROYECTOS",
+        "client_id": "f22447ef-112c-46b3-80f4-a1fcfe4df945",
+        "client_secret": "LLvn4m9o1jn6EGGGdOo9hg==",
+        "ruc": "20607597236"
     }
 ]

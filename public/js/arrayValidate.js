@@ -244,16 +244,18 @@ function actionsToDoOnFinish() {
             QErrors++
         }
     })
-    let selectErrors = confirm(`Se han encontrado ${QErrors} error(es). ¿Deseas que se autoseleccionen los errores?`);
+    if (QErrors > 0) {
+        let selectErrors = confirm(QErrors === 1 ? `Se han encontrado ${QErrors} error. ¿Deseas que se autoseleccione?` : `Se han encontrado ${QErrors} errores. ¿Deseas que se autoseleccionen?`);
 
-    if (selectErrors == true) {
-        registros.forEach((registro) => {
-            const check = registro.querySelector('#regCheckbox')
-            check.checked = false
-            if (registro.querySelector('.estadoCp').innerText === 'ERROR') {
-                check.checked = true
-            }
-        })
+        if (selectErrors == true) {
+            registros.forEach((registro) => {
+                const check = registro.querySelector('#regCheckbox')
+                check.checked = false
+                if (registro.querySelector('.estadoCp').innerText === 'ERROR') {
+                    check.checked = true
+                }
+            })
+        }
     }
 
     console.timeEnd("Tiempo De Procesamiento");

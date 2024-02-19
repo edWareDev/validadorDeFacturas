@@ -255,18 +255,7 @@ function actionsToDoOnFinish() {
             }
         })
     }
-    const resultCPContainer = document.querySelectorAll('.estadoCp')
-    let q = 0
-    resultCPContainer.forEach((e) => {
-        if (e.innerText === 'ERROR') {
-            q++
-        }
-    })
-    if (q > 0) {
-        console.log('La operación ha finalizado con ', q, ' errore.')
-    } else {
-        console.log('La operación ha finalizado sin errores.')
-    }
+
     console.timeEnd("Tiempo De Procesamiento");
     disableAllCheckbox(false)
     document.querySelector('#checkFile').style.display = 'flex';

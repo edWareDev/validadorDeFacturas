@@ -234,8 +234,39 @@ async function validateComprobante(token, datosFactura, idBusinessSelected) {
 }
 
 let listenerDownloadEnabled = false
-function actionsToDoOnFinish() {
 
+function actionsToDoOnFinish() {
+    const tableBody = document.querySelector('.tableBody')
+    const registros = tableBody.querySelectorAll('.registro')
+    let QErrors = 0
+    registros.forEach((registro) => {
+        if (registro.querySelector('.estadoCp').innerText === 'ERROR') {
+            QErrors++
+        }
+    })
+    let selectErrors = confirm(`Se han encontrado ${QErrors} error(es). ¿Deseas que se autoseleccionen los errores?`);
+
+    if (selectErrors == true) {
+        registros.forEach((registro) => {
+            const check = registro.querySelector('#regCheckbox')
+            check.checked = false
+            if (registro.querySelector('.estadoCp').innerText === 'ERROR') {
+                check.checked = true
+            }
+        })
+    }
+    const resultCPContainer = document.querySelectorAll('.estadoCp')
+    let q = 0
+    resultCPContainer.forEach((e) => {
+        if (e.innerText === 'ERROR') {
+            q++
+        }
+    })
+    if (q > 0) {
+        console.log('La operación ha finalizado con ', q, ' errore.')
+    } else {
+        console.log('La operación ha finalizado sin errores.')
+    }
     console.timeEnd("Tiempo De Procesamiento");
     disableAllCheckbox(false)
     document.querySelector('#checkFile').style.display = 'flex';

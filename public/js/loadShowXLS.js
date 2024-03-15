@@ -21,9 +21,18 @@ function handleFile() {
     });
     let plantilla = ``
     resultArray.forEach((item, i) => {
+      let fechaBoleta = ''
       if (item.n_comp) {
-        const fecha = new Date(1900, 0, item.f_comp - 1);
-        const fechaBoleta = fecha.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        if (typeof item.f_comp === 'number') {
+          console.log('Fecha es Número')
+          const fecha = new Date(1900, 0, item.f_comp - 1);
+          fechaBoleta = fecha.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        } else if (typeof item.f_comp === 'string') {
+          const parts = item.f_comp.split('/')
+          fechaBoleta = `${parts[0]}/${parts[1]}/${parts[2]}`;
+        }
+        // const fecha = new Date(1900, 0, item.f_comp - 1);
+        // const fechaBoleta = fecha.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
         const montoTotal = item.s_tota || 0
         console.log(item);
         plantilla += `
@@ -34,12 +43,12 @@ function handleFile() {
         <input type="checkbox" name="regCheckbox" id="regCheckbox" checked>
         </label>
         </div>
-        <div class="fechaComprobante" title="${fechaBoleta}">${fechaBoleta.trim()}</div>
-        <div class="codigoComprobante">${(item.c_comp).trim()}</div>
-        <div class="numeroSerie">${(item.n_seri).trim()}</div>
+        <div class="fechaComprobante" title="${item.f_comp}">${String(fechaBoleta).trim()}</div>
+        <div class="codigoComprobante">${String(item.c_comp).trim()}</div>
+        <div class="numeroSerie">${String(item.n_seri).trim()}</div>
         <div class="numeroComprobante">${item.n_comp}</div>
         <div class="RUC">${item.n_ruc}</div>
-        <div class="montoTotal">${(montoTotal.toFixed(2) || 0).trim()}</div>
+        <div class="montoTotal">${String(Number(montoTotal).toFixed(2) || '0').trim()}</div>
         <div class="estadoCp"></div>
         <div class="estadoRuc"></div>
         <div class="estadoCondDomiRuc"></div>

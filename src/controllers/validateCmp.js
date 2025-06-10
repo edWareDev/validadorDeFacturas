@@ -60,6 +60,7 @@ async function fetchComprobante(businessRuc, validateOptions, intentos = 0) {
     try {
         const url = `https://api.sunat.gob.pe/v1/contribuyente/contribuyentes/${businessRuc}/validarcomprobante`
         const response = await fetchWithTimeout(url, validateOptions);
+        console.log('Fecha de Validacion: ', new Date());
         if (response.status === 200) {
             const responseData = await response.json();
             if (responseData.success) {

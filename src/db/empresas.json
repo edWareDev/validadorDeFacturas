@@ -89,5 +89,61 @@
         "client_id": "f22447ef-112c-46b3-80f4-a1fcfe4df945",
         "client_secret": "LLvn4m9o1jn6EGGGdOo9hg==",
         "ruc": "20607597236"
+    },
+    {
+        "id": "13",
+        "name": "INNOVA FUSION S.A.C.",
+        "client_id": "37384d4d-f06c-40ee-b53d-7c94a37cdedf",
+        "client_secret": "esQaWHgG7Nb5LkiQ9ghX0w==",
+        "ruc": "20613944321"
+    },
+    {
+        "id": "14",
+        "name": "FRAMEWORK ENERGY S.A.C.",
+        "client_id": "950d698b-9838-4712-9995-e4393474d8de",
+        "client_secret": "EVh2efbsdSR5G/b5WPh/Tw==",
+        "ruc": "20613868861"
+    },
+    {
+        "id": "15",
+        "name": "TECHCONSULT PRIME S.A.C.",
+        "client_id": "d2b4ed75-2681-4134-9df6-ceaf8cb468cd",
+        "client_secret": "DXIyVODZ/x1yiYjwu037ug==",
+        "ruc": "20613869591"
+    },
+    {
+        "id": "16",
+        "name": "APEX PRECISIONS S.A.C.",
+        "client_id": "c8ae99ed-fdfe-4710-a2f0-44466535415f",
+        "client_secret": "HbFtxiVQrMl1wEH7A0expw==",
+        "ruc": "20613851985"
+    },
+    {
+        "id": "17",
+        "name": "PRESTIGE BUILDERS S.A.C.",
+        "client_id": "2f42caee-8d8a-4627-ab9c-e1e017d8a5c6",
+        "client_secret": "Gky1u9yInQW+WIxCUiOv+Q==",
+        "ruc": "20613927281"
+    },
+    {
+        "id": "18",
+        "name": "CONSORCIO ELECTRIFICACION LA MAR ASOCIADOS",
+        "client_id": "2d93b102-7b8d-43c6-b1e2-e128d29b5d77",
+        "client_secret": "wlkjvma6XB30zYCOPjsJbA==",
+        "ruc": "20610117113"
+    },
+    {
+        "id": "19",
+        "name": "CONSORCIO EJECUTOR LOS GRANADOS",
+        "client_id": "8709213d-b5e9-4fbd-807e-ad816dc9c866",
+        "client_secret": "qSVnmNB5SS4ZdBz8SyGYRw==",
+        "ruc": "20612277517"
+    },
+    {
+        "id": "12",
+        "name": "CONSORCIO CONTRATISTAS LAMPA",
+        "client_id": "9b9898e5-980d-4c6a-9ab0-bebece9f6ffb",
+        "client_secret": "A/Cc1zWZQeQCKnsgypcL8w==",
+        "ruc": "20612388378"
     }
 ]

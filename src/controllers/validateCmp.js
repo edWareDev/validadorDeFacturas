@@ -1,6 +1,18 @@
 import fetch from "node-fetch"
 import fs from "fs"
 
+const getLocalDateTime = () => {
+    return new Date().toLocaleString("es-ES", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
+    })
+}
+
 export async function validateCmp(req, res) {
     const token = req.body.token;
     const cmpData = req.body.comprobante
@@ -60,7 +72,7 @@ async function fetchComprobante(businessRuc, validateOptions, intentos = 0) {
     try {
         const url = `https://api.sunat.gob.pe/v1/contribuyente/contribuyentes/${businessRuc}/validarcomprobante`
         const response = await fetchWithTimeout(url, validateOptions);
-        console.log('Fecha de Validacion: ', new Date());
+        console.log('Fecha de Validacion: ', getLocalDateTime());
         if (response.status === 200) {
             const responseData = await response.json();
             if (responseData.success) {
@@ -96,12 +108,12 @@ async function fetchComprobante(businessRuc, validateOptions, intentos = 0) {
                 }
             } else {
                 // Manejo de errores si la respuesta no es 200
-                throw new Error(`${+Date} Error al enviar orden:. Status: ${response.status}`);
+                throw new Error(`${getLocalDateTime()} Error al enviar orden:. Status: ${response.status}`);
             }
         }
     } catch (err) {
         console.error(err);
-        throw new Error(`${+Date} Falla al enviar`);
+        throw new Error(`${getLocalDateTime()} Falla al enviar`);
     }
 }
 
